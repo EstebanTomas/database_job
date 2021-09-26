@@ -1,7 +1,7 @@
 #  Individual_database_work
 
 #  Práctica Evaluativa
->> Entregable.
+>> Entregable:
 ● Diagrama de entidad relación.
 ● Script de SQL.
 >>
