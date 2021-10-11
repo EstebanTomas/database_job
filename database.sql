@@ -16,148 +16,122 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `book`
+-- Table structure for table `feature`
 --
 
-DROP TABLE IF EXISTS `book`;
+DROP TABLE IF EXISTS `feature`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `book` (
+CREATE TABLE `feature` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL,
-  `editorial` varchar(100) NOT NULL,
+  `shopping` text,
+  `medicine` text,
+  `events_to_attend` text,
+  `bill_payment` text,
+  `hobbies` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `feature`
+--
+
+LOCK TABLES `feature` WRITE;
+/*!40000 ALTER TABLE `feature` DISABLE KEYS */;
+INSERT INTO `feature` VALUES (1,'compra de comestibles para el hogar',NULL,NULL,NULL,NULL),(3,NULL,'Medicamentos para tener en casa',NULL,NULL,NULL),(4,NULL,NULL,'fiesta de mi amigo lucas',NULL,NULL),(5,NULL,NULL,'casamiento de Camila Parissoti',NULL,NULL),(6,NULL,NULL,'¡mi graduación!',NULL,NULL),(7,'lista para la cena con amigos',NULL,NULL,NULL,NULL),(8,'Juguetes para el día del niño',NULL,NULL,NULL,NULL),(9,NULL,'Insulina de la abuela',NULL,NULL,NULL),(10,NULL,NULL,'Evento de eskeibor',NULL,NULL),(11,NULL,NULL,NULL,'facturas de la luz y el gas',NULL),(12,NULL,NULL,NULL,'pagar el seguro del auto',NULL),(13,NULL,NULL,NULL,NULL,'tocar bateria'),(14,NULL,NULL,NULL,NULL,'salir a correr(RUNNING)');
+/*!40000 ALTER TABLE `feature` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `features_notes`
+--
+
+DROP TABLE IF EXISTS `features_notes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `features_notes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_feature` int(11) NOT NULL,
+  `id_note` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `id_feature_idx` (`id_feature`),
+  KEY `id_note_idx` (`id_note`),
+  CONSTRAINT `id_feature` FOREIGN KEY (`id_feature`) REFERENCES `feature` (`id`),
+  CONSTRAINT `id_note` FOREIGN KEY (`id_note`) REFERENCES `note` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `features_notes`
+--
+
+LOCK TABLES `features_notes` WRITE;
+/*!40000 ALTER TABLE `features_notes` DISABLE KEYS */;
+INSERT INTO `features_notes` VALUES (2,1,1),(3,3,2),(4,4,4),(5,5,9),(6,6,11),(7,7,8),(8,8,10),(9,9,14),(10,10,5),(11,12,8),(12,11,12),(13,13,6),(14,14,7);
+/*!40000 ALTER TABLE `features_notes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `note`
+--
+
+DROP TABLE IF EXISTS `note`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `note` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(60) NOT NULL,
+  `description` text,
   `creation_date` date NOT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `book`
---
-
-LOCK TABLES `book` WRITE;
-/*!40000 ALTER TABLE `book` DISABLE KEYS */;
-INSERT INTO `book` VALUES (1,'el misterio de las cuatro cartas','S.L.U. ESPASA LIBROS','2021-09-24','2021-09-24 21:02:46'),(2,'el misterio de las cuatro cartas','S.L.U. ESPASA LIBROS','2019-01-01','2021-09-24 21:03:40'),(3,'el dia que se perdio la coordura','SUMA','2017-01-01','2021-09-24 21:10:06'),(4,'el dia que se perdio el amor','SUMA','2018-01-01','2021-09-24 21:11:10'),(5,'El juego del alma','SUMA','2021-01-01','2021-09-24 21:12:39'),(6,'La vida que no elegi','SUMA','2016-04-16','2021-09-24 21:14:34'),(7,'La vida que no elegi','SUMA','2016-04-16','2021-09-24 21:14:34'),(8,'El psicoanalista','B DE BOLSILLO','2001-01-29','2021-09-24 21:17:07'),(9,'Misery','Viking Press','1987-06-08','2021-09-24 21:19:00'),(10,'La pareja de al lado','Viking Press','2016-07-14','2021-09-24 21:21:42'),(11,'La Vida Secreta De La Mente','DEBOLS!LLO CLAVE','2015-10-01','2021-09-24 21:26:47'),(12,'el diario de ana frank','Garbo','1947-06-25','2021-09-25 11:22:10'),(13,'Despues','B DE BOLSILLO','2021-06-10','2021-09-25 11:29:04');
-/*!40000 ALTER TABLE `book` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `genre`
---
-
-DROP TABLE IF EXISTS `genre`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `genre` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `created_at` date DEFAULT NULL,
-  `updated_at` varchar(45) DEFAULT NULL,
-  `ranking` decimal(10,0) NOT NULL,
+  `updated_at` date DEFAULT NULL,
+  `id_users` int(11) NOT NULL,
+  `can_be_removed` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `id_users_idx` (`id_users`),
+  CONSTRAINT `id_users` FOREIGN KEY (`id_users`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `genre`
+-- Dumping data for table `note`
 --
 
-LOCK TABLES `genre` WRITE;
-/*!40000 ALTER TABLE `genre` DISABLE KEYS */;
-INSERT INTO `genre` VALUES (1,'Ciencia ficcion','1926-01-01','2021-09-25 12:07:00',8),(2,'Comedia','2000-01-01','2021-09-25 12:15:54',9),(3,'Terror','1930-01-01','2021-09-25 12:16:27',7),(4,'Drama','1900-01-01','2021-09-25 12:17:33',8),(5,'Fantastico','1900-01-01','2021-09-25 12:19:06',5),(6,'Narrativo','1000-01-01','2021-09-25 12:20:09',4),(7,'Aventuras','1900-01-01','2021-09-25 12:24:21',6),(8,'Investigación','1900-01-01','2021-09-25 12:24:44',3),(9,'Misterio','1900-01-01','2021-09-25 12:31:44',6),(10,'Suspenso','1900-01-01','2021-09-25 12:38:57',6),(11,'Novela psicológica','1900-01-01','2021-09-25 12:39:39',10),(12,'Biografia','1900-01-01','2021-09-25 12:43:06',9),(13,'Autobiografia','1900-01-01','2021-09-25 12:43:19',9);
-/*!40000 ALTER TABLE `genre` ENABLE KEYS */;
+LOCK TABLES `note` WRITE;
+/*!40000 ALTER TABLE `note` DISABLE KEYS */;
+INSERT INTO `note` VALUES (1,'comestibles','2kl de carne, galletitas de agua, sal, 1kl de duraznos, 1kl de cebolla, un pollo, arroz, 2 paquetes de fideos, un vino','2021-08-09',NULL,2,0),(2,'lista para la farmacia','una tableta de buscapina, una de aspirinas y dos de ibuprofeno','2021-10-09',NULL,12,1),(3,'lista para supermercado','papas, cebollas, morron, un pollo, pack de birra y una picada','2021-10-09',NULL,12,1),(4,'joda de lucas','asistir a la 00:00 y llevar para tomar u compartir','2021-10-20',NULL,9,1),(5,'ir a patinar','Debo asistir a la 17:00 en la plaza sarmiento','2021-10-03',NULL,5,0),(6,'mi hobbies','los martes de 15:00pm hasta 20:00pm toco la bateria','2018-05-19','2021-10-09',6,0),(7,'mi hobbie','los sabado me gusta ir a trotar a un lugar diferente,  durante la semana hago el mismo recorrido de siempre','2021-03-08',NULL,8,1),(8,'facturas','2000 pesos de luz el lunes 11, 1500 de gas','2021-10-09',NULL,3,0),(9,'casamiento de Camila p','asistir el sabado 9 de octubre a la 16:00pm en el hotel howard johnson, ir de traje y llevar un regalo','2021-02-21',NULL,8,0),(10,'regalo para el dia del niño','una play portatil para ana, dos balones de futbol y botines','2021-07-01',NULL,3,1),(11,'graduación de secundaria','debo asistir a la 19:00pm en la escuela, ir con uniformer formal','2021-10-01',NULL,8,1),(12,'pagar el seguro del auto','ir antes de la 09:00am, debo abonar 1.500 pesos','2020-01-12',NULL,7,1),(13,'rapa para mi','comprar dos remeras, un jean y un jogging, tres pares medias y dos boxers','2021-09-03',NULL,14,0),(14,'remedios de la abu','pasar a retirar la insulina para abu','2021-05-18',NULL,15,1);
+/*!40000 ALTER TABLE `note` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `genre_book`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `genre_book`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `genre_book` (
+CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `genre_id` int(100) NOT NULL,
-  `books_id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `lastname` varchar(80) NOT NULL,
+  `email` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `genre_id_idx` (`genre_id`),
-  KEY `books_id_idx` (`books_id`),
-  CONSTRAINT `books_id` FOREIGN KEY (`books_id`) REFERENCES `book` (`id`),
-  CONSTRAINT `genre_id` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `genre_book`
+-- Dumping data for table `user`
 --
 
-LOCK TABLES `genre_book` WRITE;
-/*!40000 ALTER TABLE `genre_book` DISABLE KEYS */;
-INSERT INTO `genre_book` VALUES (1,9,1),(2,4,3),(3,4,4),(4,3,8),(5,3,10),(6,8,11),(7,5,6),(8,1,5),(9,13,12),(10,10,13),(11,2,2),(12,10,7),(13,4,9);
-/*!40000 ALTER TABLE `genre_book` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `sale`
---
-
-DROP TABLE IF EXISTS `sale`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `sale` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_book` int(100) NOT NULL,
-  `price` varchar(45) DEFAULT NULL,
-  `payment_method` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  CONSTRAINT `id_book` FOREIGN KEY (`id`) REFERENCES `book` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `sale`
---
-
-LOCK TABLES `sale` WRITE;
-/*!40000 ALTER TABLE `sale` DISABLE KEYS */;
-INSERT INTO `sale` VALUES (1,1,'2.000','Efectivo'),(2,2,'2.000','Efectivo'),(3,3,'4.000','targeta de debito'),(4,4,'3.700','targeta de credito'),(5,5,'3.200','targeta prepaga'),(6,6,'1.999','targeta prepaga'),(7,7,'1.999','Efectivo'),(8,8,'4.399','Efectivo'),(9,9,'6.000','Efectivo'),(10,10,'2.500','Targeta de debito'),(11,11,'5.500','Targeta de debito'),(12,12,'4.500','efectivo'),(13,13,'3.500','efectivo');
-/*!40000 ALTER TABLE `sale` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `writer`
---
-
-DROP TABLE IF EXISTS `writer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `writer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(40) NOT NULL,
-  `lastname` varchar(45) NOT NULL,
-  `email` varchar(60) NOT NULL,
-  `country` varchar(45) NOT NULL,
-  `book_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`) /*!80000 INVISIBLE */,
-  KEY `book_id_idx` (`book_id`),
-  CONSTRAINT `book_id` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `writer`
---
-
-LOCK TABLES `writer` WRITE;
-/*!40000 ALTER TABLE `writer` DISABLE KEYS */;
-INSERT INTO `writer` VALUES (2,'Sophie','hannah','sophiehannah@gmail.com','Reino Unido',1),(3,'Javier','Castillo','javicastillo@gmail.com','España',3),(4,'Javier','Castillo','javicastillo@gmail.com','España',5),(5,'Javier','Castillo','javicastillo@gmail.com','España',4),(6,'John','Katzenbach','johnkatzenbach@gmail.com','Estados Unidos',8),(7,'Lorena','Franco','lorefranco@gmail.com','España',7),(8,'Stephen','King','stephen@gmail.com','Estados Unidos',9),(9,'Ana','Frank','frank@gmail.com','Alemania',12),(10,'Shari','Lapeña','lapeñashari@gmail.com','Estados Unidos',10),(11,'Mariano','Sigman','mariano@gmail.com','Argentina',11);
-/*!40000 ALTER TABLE `writer` ENABLE KEYS */;
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'juan','Avellaneda','juvellaneda@gmail.com'),(2,'Fernando','Garcia','fergarcia078@gmail.com'),(3,'Sebastian','Del Valle','sabastiandv18@gmail.com'),(5,'Gustavo','Sanchez','sanchezgus@gmail.com'),(6,'Christian','Rodrigues','rodrigueschris@gmail.com'),(7,'Santiago','Rodrigues','santiago726@gmail.com'),(8,'Niculas','Scoll','scolnico76@gmail.com'),(9,'Maitena','Andrade','maiandrade@gmail.com'),(11,'Milagros','Oneto','miluoneto8@gmail.com'),(12,'judith','Vargas','judithv15@gmail.com'),(13,'Romina','Parissoti','roparissoti00@gmail.com'),(14,'Matias','Mendoza','mendozamarias0@gmail.com'),(15,'Florencia','Torres','torresflor18@gmail.com');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -173,4 +147,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-25 21:28:55
+-- Dump completed on 2021-10-11  2:04:56
