@@ -1,14 +1,12 @@
-#  Individual_database_work
+#  Trabajo individual sobre base de datos
 
 #  Práctica Evaluativa
 >> Entregable:
-● Diagrama de entidad relación.
-● Script de SQL.
+>>● Diagrama de entidad relación.
+>>● Script de SQL.
 >>
->> Trabajo sobre base de datos, entrega individual realizada por Tomás Valiente.
+>> Trabajo sobre base de datos, entrega individual realizada por Tomás Esteban Valiente.
 >>
->> La base de datos trata sobre autores de libros, los géneros de los mismos y sus ventas.
->> Constan de 5 tablas, una tabla pívot entre ellas.
->>
->> Quiero aclarar, que no comprendí como querían que realice las tablas de usuario, notas y características.
->> Y por esa misma razón decidí crear otras tablas, con datos distintos a los que seguramente esperaban.
+>> La base de datos es sobre notas cotidianas de varias personas
+>> 
+>> consta de 4 tablas con datos de relleno
